@@ -1,0 +1,21 @@
+Porting SCREEN$ to Operating systems other than Windows.
+--------------------------------------------------------
+
+
+SCREEN$ has been licensed under the Gnu Public License v3.0. This means that you are free to port or modify SCREEN$ in whatever way you like, as long as you abide by the terms set out in the file "Copying.txt".
+
+For those of you wanting to port SCREEN$ to your operating system, these notes may come in handy.
+
+
+
+You will likely find porting SCREEN$ as-is to be a difficult task. The screensaver relies heavily on windows components and Win32 API calls to achieve its task, not to mention the use of Direct3D, DirectDraw and DirectSound. These systems are not found on operating systems other than Windows (though WINE is available for Linux, it is not of a sufficient standard to run SCREEN$). To this end, you should not attempt to port the whole of the code, but there is one file that has been designed to be ported.
+
+The file Speccy_Screen.pas has no windows dependencies, nor Delphi components and should compile with little modification on x86 architecture using the Free Pascal compiler (fpc). It is this file that generates the screen display frame by frame, and produces a buffer of sound samples you can output.
+
+How you display the graphics and play the sound is up to you - SDL may be the API of choice, but there are others. Anyone looking to port SCREEN$ should look mostly at the Form1.IdleProc() in Screen_Strings.pas, and the Function Frame() in Speccy_Screen.pas - they do most of the work. If you have any difficulty with understanding my code, then please feel free to contact me and we can discuss it.
+
+Bear in mind that the code may change drastically between releases.
+
+Dunny,
+paul.dunn@gmail.com
+
